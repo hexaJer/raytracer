@@ -14,7 +14,7 @@ int main(){
     const int comp = 3;
     const float max_light_depth = 10.0;
     Vec3f v_null(0, 0, 0);
-    Vec3f light_pos(0, .75, 2);
+    Vec3f light_pos(.4, .75, 2);
     Scene scene;
 
     char data[width * height * comp] = {0};
@@ -85,6 +85,15 @@ int main(){
             if (light_val < 0){
                 light_val = 0;
             }
+
+            // shadows
+            Vec3f rayPos = result.intersect_pos + (light_dir*0.001f);
+            Ray light_ray(rayPos, light_dir);
+            Sample shadow_result = scene.intersect(light_ray);
+            if (shadow_result.intersect_dist < light_dist){
+                color *= 0.5;
+            }
+
             int i = ((comp * width) * y) + (comp * x);
             data[i + 0] = color.r * 255 * light_val;
             data[i + 1] = color.g * 255 * light_val;

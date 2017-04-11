@@ -5,13 +5,13 @@ using namespace std;
 Ray::Ray(const Vec3f &position, const Vec3f &direction) : position(position), direction(direction) {}
 Ray::Ray(const Vec3f &position, const float x, const float y, const float z) : position(position), direction(Vec3f(x, y, z)) {}
 
-Sample::Sample(Vec3f &intersect_pos, Vec3f &normal, int primitive_id) : intersect_pos(intersect_pos), normal(normal), primitive_id(primitive_id) {}
+Sample::Sample(Vec3f &intersect_pos, float intersect_dist, Vec3f &normal, int primitive_id) : intersect_pos(intersect_pos), intersect_dist(intersect_dist), normal(normal), primitive_id(primitive_id) {}
 
 Scene::Scene() : sphere_pos(0, 0, 3), sphere_rad(.5) {}
 
 Sample Scene::intersect(const Ray &ray){
     int primitive_id = 0;
-    float t = 9999.0;
+    float t = 999999.0;
     if(intersect_plane(t, ray.direction, ray.position, 2, 4)){
         primitive_id = Scene::back_plane_id;
     }
@@ -67,5 +67,5 @@ Sample Scene::intersect(const Ray &ray){
         default:
         break;
     }
-    return Sample(intersect_pos, normal, primitive_id);
+    return Sample(intersect_pos, t, normal, primitive_id);
 }

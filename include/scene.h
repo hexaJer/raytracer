@@ -19,8 +19,9 @@ class Ray
 class Sample
 {
     public:
-    Sample(Vec3f &intersect_pos, Vec3f &normal, int primitive_id);
+    Sample(Vec3f &intersect_pos, float intersect_dist, Vec3f &normal, int primitive_id);
     const Vec3f intersect_pos;
+    const float intersect_dist;
     const Vec3f normal;
     const int primitive_id;
 };
