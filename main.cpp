@@ -9,8 +9,8 @@
 
 int main(){
     char const *filename = "out.png";
-    const int width = 256;
-    const int height = 256;
+    const int width = 512;
+    const int height = 512;
     const int comp = 3;
     Vec3f v_null(0, 0, 0);
     Scene scene;
@@ -19,8 +19,8 @@ int main(){
 
     for(int x=0; x < width; x++){
         for(int y=0; y < height; y++){
-            float rx = float(x) / 255.0 - .5;
-            float ry = float(y) / 255.0 - .5;
+            float rx = float(x) / float(width) - .5;
+            float ry = float(y) / float(height) - .5;
             ry *= -1;
             float rz = 1.0;
             Vec3f v_dir(rx, ry, rz);
